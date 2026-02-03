@@ -1,5 +1,8 @@
-resource azurerm_resource_group rg {
-    for_each = var.resource_groups
-    name = each.key
-    location = each.value.location
+variable "resource_group_name" {
+  description = "Name of RG"
+}
+
+variable "resource_group_location" {
+  description = "Location of RG"
+  
 }
