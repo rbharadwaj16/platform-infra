@@ -3,3 +3,18 @@ kind: Kustomization
 
 resources:
  - ../../base
+
+# Patches to apply to base resources
+patches:
+  - patch: |-
+      apiVersion: v1
+      kind: Service
+      metadata:
+        name: argocd-server
+      spec:
+        type: LoadBalancer
+    target:
+      group: ""
+      version: v1
+      kind: Service
+      name: argocd-server
