@@ -12,4 +12,4 @@ resources:
   - 08-argo-deployment.yaml
   - 09-statefulset.yaml
   - 10-argo-networkpolicy.yaml
-  - argo-app-root.yaml
+  #- argo-app-root.yaml
