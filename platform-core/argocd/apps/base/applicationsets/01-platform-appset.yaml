@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: platform
+  namespace: argocd
+spec:
+  generators:
+    - list:
+        elements: [] 
+  template:
+    metadata:
+      name: 'platform-{{env}}-{{name}}'
+      labels:
+        app.kubernetes.io/part-of: platform
+        env: '{{env}}'
+        component: '{{name}}'
+    spec:
+      project: platform
+      source:
+        repoURL: https://dev.azure.com/<org>/<project>/_git/platform-core
+        targetRevision: main
+        path: '{{path}}'
+      destination:
+        server: '{{clusterServer}}'
+        namespace: '{{namespace}}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - ServerSideApply=true
+          - CreateNamespace=true
