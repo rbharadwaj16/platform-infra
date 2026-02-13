@@ -10,7 +10,7 @@ spec:
   description: dev project
   # Allow manifests to deploy from any Git repos
   sourceRepos:
-  - 'platform-repo'
+  - '*'
   # Only permit applications to deploy to the guestbook namespace in the same cluster
   destinations:
   - namespace: '*'
