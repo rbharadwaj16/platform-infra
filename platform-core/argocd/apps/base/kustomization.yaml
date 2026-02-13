@@ -4,4 +4,3 @@ kind: Kustomization
 resources:
 - argo-projects/01-platform-repository-secret.yaml
 - argo-projects/02-platform-project.yaml
-- applicationsets/01-platform-appset.yaml

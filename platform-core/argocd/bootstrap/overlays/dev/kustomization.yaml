@@ -3,6 +3,7 @@ kind: Kustomization
 
 resources:
  - ../../base
+ - 01-argo-app-root.yaml
 
 # Patches to apply to base resources
 patches:
