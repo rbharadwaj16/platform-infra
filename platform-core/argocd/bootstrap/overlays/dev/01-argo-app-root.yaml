@@ -11,7 +11,7 @@ spec:
   source:
     repoURL: https://github.com/rbharadwaj16/platform-infra.git
     targetRevision: main
-    path: platform-infra/platform-core/argocd/apps/overlays/dev
+    path: platform-core/argocd/apps/overlays/dev
 
   destination:
     server: https://kubernetes.default.svc
