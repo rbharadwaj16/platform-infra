@@ -5,7 +5,7 @@ metadata:
   name: crossplane
   namespace: argocd
 spec:
-  project: dev
+  project: default
   source:
     chart: crossplane
     repoURL: https://charts.crossplane.io/stable
