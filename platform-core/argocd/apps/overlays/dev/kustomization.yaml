@@ -3,4 +3,5 @@ kind: Kustomization
 
 resources:
 - ../../base
+- ../../../../crossplane/overlays/dev
 #- 01-platform-appset.yaml
