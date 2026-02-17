@@ -16,3 +16,11 @@ spec:
   - namespace: '*'
     server: https://kubernetes.default.svc
 
+  clusterResourceWhitelist:
+    - group: "*"
+      kind: "*"
+
+  # Allow all namespaced resources too
+  namespaceResourceWhitelist:
+    - group: "*"
+      kind: "*"
