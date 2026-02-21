@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: backstage
-          image: backstage:1.0.0
+          image: acepocdemoregistry.azurecr.io/backstage:v1.0
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
