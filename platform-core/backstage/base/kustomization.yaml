@@ -7,6 +7,6 @@ resources:
   - 03-backstage-postgresdb-pv.yaml
   - 04-backstage-postgresdb-pvc.yaml
   - 05-backstage-postgresdb-deployment.yaml
-  - 06-backstage-postgresdb-service.yaml
+  - 06-backstage-postgresdb-svc.yaml
   - 07-backstage-deployment.yaml
   - 08-backstage-svc.yaml
