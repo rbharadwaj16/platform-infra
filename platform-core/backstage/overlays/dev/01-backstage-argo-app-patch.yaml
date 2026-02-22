@@ -5,3 +5,14 @@ metadata:
   namespace: argocd
 spec:
   project: dev
+  source:
+    repoURL: https://github.com/rbharadwaj16/platform-infra.git
+    targetRevision: HEAD
+    path: platform-core/backstage/overlays/dev
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: backstage
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
