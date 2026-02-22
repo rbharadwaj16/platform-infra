@@ -4,9 +4,10 @@ kind: Kustomization
 resources:
   - 01-backstage-ns.yaml
   #- 02-backstage-postgresdb-secret.yaml
-  - 03-backstage-postgresdb-pv.yaml
+  #- 03-backstage-postgresdb-pv.yaml
   - 04-backstage-postgresdb-pvc.yaml
   - 05-backstage-postgresdb-deployment.yaml
   - 06-backstage-postgresdb-svc.yaml
   - 07-backstage-deployment.yaml
   - 08-backstage-svc.yaml
+  - 09-backstage-argo-app.yaml
