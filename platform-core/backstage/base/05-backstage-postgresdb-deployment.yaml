@@ -16,17 +16,12 @@ spec:
       containers:
         - name: postgres
           image: postgres:13.2-alpine
-          imagePullPolicy: 'IfNotPresent'
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 5432
           envFrom:
             - secretRef:
                 name: postgres-secrets
-          env:
-            - name: POSTGRES_HOST
-              value: postgres.backstage
-            - name: POSTGRES_PORT
-              value: '5432'
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
               name: postgresdb

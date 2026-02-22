@@ -1,0 +1,2 @@
+# Ignore files with "secret" in their names
+*secret*
