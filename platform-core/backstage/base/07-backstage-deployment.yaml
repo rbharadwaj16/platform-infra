@@ -20,27 +20,41 @@ spec:
           ports:
             - containerPort: 7007
           env:
-            - name: APP_CONFIG_backend_database_client
-              value: pg
-            - name: APP_CONFIG_backend_database_connection_host
-              value: postgres
-            - name: APP_CONFIG_backend_database_connection_port
-              value: "5432"
-            - name: APP_CONFIG_backend_database_connection_user
-              valueFrom:
-                secretKeyRef:
-                  name: postgres-secrets
-                  key: POSTGRES_USER
-            - name: APP_CONFIG_backend_database_connection_password
-              valueFrom:
-                secretKeyRef:
-                  name: postgres-secrets
-                  key: POSTGRES_PASSWORD
-            - name: APP_CONFIG_backend_database_connection_database
-              valueFrom:
-                secretKeyRef:
-                  name: postgres-secrets
-                  key: POSTGRES_DB
+              - name: POSTGRES_HOST
+                value: postgres
+              - name: POSTGRES_PORT
+                value: "5432"
+              - name: POSTGRES_USER
+                valueFrom:
+                  secretKeyRef:
+                    name: postgres-secrets
+                    key: POSTGRES_USER
+              - name: POSTGRES_PASSWORD
+                valueFrom:
+                  secretKeyRef:
+                    name: postgres-secrets
+                    key: POSTGRES_PASSWORD
+            # - name: APP_CONFIG_backend_database_client
+            #   value: pg
+            # - name: APP_CONFIG_backend_database_connection_host
+            #   value: postgres
+            # - name: APP_CONFIG_backend_database_connection_port
+            #   value: "5432"
+            # - name: APP_CONFIG_backend_database_connection_user
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: postgres-secrets
+            #       key: POSTGRES_USER
+            # - name: APP_CONFIG_backend_database_connection_password
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: postgres-secrets
+            #       key: POSTGRES_PASSWORD
+            # - name: APP_CONFIG_backend_database_connection_database
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: postgres-secrets
+            #       key: POSTGRES_DB
           # readinessProbe:
           #   httpGet:
           #     path: /healthcheck
