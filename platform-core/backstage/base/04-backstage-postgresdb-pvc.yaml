@@ -4,9 +4,9 @@ metadata:
   name: postgres-storage-claim
   namespace: backstage
 spec:
-  storageClassName: manual
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 2G
+      storage: 2Gi
+  storageClassName: managed-csi
