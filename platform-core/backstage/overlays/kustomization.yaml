@@ -11,3 +11,9 @@ patches:
       version: v1alpha1
       kind: Application
       name: backstage
+  - path: 02-backstage-lb-svc.yaml
+    target:
+      group: ""
+      version: v1
+      kind: Service
+      name: backstage
