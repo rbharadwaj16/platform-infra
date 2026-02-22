@@ -15,23 +15,41 @@ spec:
     spec:
       containers:
         - name: backstage
-          image: backstage:1.0.0
+          image: acepocdemoregistry.azurecr.io/backstage:v1.0
           imagePullPolicy: IfNotPresent
           ports:
-            - name: http
-              containerPort: 7007
-          envFrom:
-            - secretRef:
-                name: postgres-secrets
-            - secretRef:
-                name: backstage-secrets
-# Uncomment if health checks are enabled in your app:
-# https://backstage.io/docs/plugins/observability#health-checks
-#          readinessProbe:
-#            httpGet:
-#              port: 7007
-#              path: /healthcheck
-#          livenessProbe:
-#            httpGet:
-#              port: 7007
-#              path: /healthcheck
+            - containerPort: 7007
+          env:
+            - name: APP_CONFIG_backend_database_client
+              value: pg
+            - name: APP_CONFIG_backend_database_connection_host
+              value: postgres
+            - name: APP_CONFIG_backend_database_connection_port
+              value: "5432"
+            - name: APP_CONFIG_backend_database_connection_user
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secrets
+                  key: POSTGRES_USER
+            - name: APP_CONFIG_backend_database_connection_password
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secrets
+                  key: POSTGRES_PASSWORD
+            - name: APP_CONFIG_backend_database_connection_database
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secrets
+                  key: POSTGRES_DB
+          # readinessProbe:
+          #   httpGet:
+          #     path: /healthcheck
+          #     port: 7007
+          #   initialDelaySeconds: 10
+          #   periodSeconds: 10
+          # livenessProbe:
+          #   httpGet:
+          #     path: /healthcheck
+          #     port: 7007
+          #   initialDelaySeconds: 30
+          #   periodSeconds: 20
