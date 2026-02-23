@@ -34,6 +34,11 @@ spec:
                   secretKeyRef:
                     name: postgres-secrets
                     key: POSTGRES_PASSWORD
+              - name: POSTGRES_DB
+                valueFrom:
+                  secretKeyRef:
+                    name: postgres-secrets
+                    key: POSTGRES_DB
             # - name: APP_CONFIG_backend_database_client
             #   value: pg
             # - name: APP_CONFIG_backend_database_connection_host
