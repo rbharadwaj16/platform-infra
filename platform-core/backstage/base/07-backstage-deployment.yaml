@@ -20,21 +20,21 @@ spec:
           ports:
             - containerPort: 7007
           env:
-              - name: POSTGRES_HOST
+              - name: BACKSTAGE_DB_HOST
                 value: postgres
-              - name: POSTGRES_PORT
+              - name: BACKSTAGE_DB_PORT
                 value: "5432"
-              - name: POSTGRES_USER
+              - name: BACKSTAGE_DB_USER
                 valueFrom:
                   secretKeyRef:
                     name: postgres-secrets
                     key: POSTGRES_USER
-              - name: POSTGRES_PASSWORD
+              - name: BACKSTAGE_DB_PASSWORD
                 valueFrom:
                   secretKeyRef:
                     name: postgres-secrets
                     key: POSTGRES_PASSWORD
-              - name: POSTGRES_DB
+              - name: BACKSTAGE_DB_NAME
                 valueFrom:
                   secretKeyRef:
                     name: postgres-secrets
