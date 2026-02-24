@@ -39,6 +39,8 @@ spec:
                   secretKeyRef:
                     name: postgres-secrets
                     key: POSTGRES_DB
+      imagePullSecrets:
+        - name: admin-creds-acr
             # - name: APP_CONFIG_backend_database_client
             #   value: pg
             # - name: APP_CONFIG_backend_database_connection_host
