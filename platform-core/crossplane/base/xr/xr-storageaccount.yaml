@@ -1,0 +1,31 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: Composition
+metadata:
+  name: storageaccount.platform.example.org
+spec:
+  compositeTypeRef:
+    apiVersion: platform.example.org/v1alpha1
+    kind: XStorageAccount
+
+  resources:
+    - name: storageaccount
+      base:
+        apiVersion: storage.azure.upbound.io/v1beta1
+        kind: Account
+        spec:
+          forProvider:
+            resourceGroupName: ""
+            location: ""
+            accountTier: Standard
+            accountReplicationType: LRS
+          providerConfigRef:
+            name: default
+      patches:
+        - fromFieldPath: spec.parameters.resourceGroupName
+          toFieldPath: spec.forProvider.resourceGroupName
+        - fromFieldPath: spec.parameters.location
+          toFieldPath: spec.forProvider.location
+        - fromFieldPath: spec.parameters.accountTier
+          toFieldPath: spec.forProvider.accountTier
+        - fromFieldPath: spec.parameters.accountReplicationType
+          toFieldPath: spec.forProvider.accountReplicationType
