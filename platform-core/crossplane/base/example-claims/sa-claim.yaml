@@ -1,0 +1,11 @@
+apiVersion: platform.example.org/v1alpha1
+kind: StorageAccount
+metadata:
+  name: sa-demo-01
+  namespace: default
+spec:
+  parameters:
+    resourceGroupName: "<YOUR_RG>"
+    location: "East US"
+    accountTier: Standard
+    accountReplicationType: LRS
