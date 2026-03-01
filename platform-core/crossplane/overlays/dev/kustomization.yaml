@@ -3,6 +3,7 @@ kind: Kustomization
 
 resources:
  - ../../base
+ - 02-crossplane-providerconfig.yaml
 patches:
   - path: 01-crossplane-argo-app-patch.yaml
     target:
