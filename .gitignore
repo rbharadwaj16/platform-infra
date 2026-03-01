@@ -1,2 +1,5 @@
 # Ignore files with "secret" in their names
 *secret*
+
+# Ignore Azure credentials
+platform-core/crossplane/overlays/dev/azure-creds.json
