@@ -8,7 +8,7 @@ resources:
 
 helmCharts:
   - name: crossplane
-    repoURL: https://charts.crossplane.io/stable
+    repo: https://charts.crossplane.io/stable
     version: 2.1.0
     releaseName: crossplane
     namespace: crossplane-system

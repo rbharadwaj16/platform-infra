@@ -9,7 +9,8 @@ spec:
     repoURL: https://github.com/rbharadwaj16/platform-infra.git
     path: platform-core/crossplane/overlays/dev
     targetRevision: main
-    kustomize: {}
+    kustomize:
+      buildOptions: --enable-helm
   destination:
     server: https://kubernetes.default.svc
     namespace: crossplane-system

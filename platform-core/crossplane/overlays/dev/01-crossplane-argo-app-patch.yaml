@@ -5,7 +5,3 @@ metadata:
   namespace: argocd
 spec:
   project: dev
-  source:
-    chart: crossplane
-    repoURL: https://charts.crossplane.io/stable
-    targetRevision: 2.1.0
