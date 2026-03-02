@@ -4,6 +4,15 @@ kind: Kustomization
 resources:
  - ../../base
  - 02-crossplane-providerconfig.yaml
+
+
+helmCharts:
+  - name: crossplane
+    repoURL: https://charts.crossplane.io/stable
+    version: 2.1.0
+    releaseName: crossplane
+    namespace: crossplane-system
+    
 patches:
   - path: 01-crossplane-argo-app-patch.yaml
     target:

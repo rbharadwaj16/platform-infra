@@ -3,3 +3,5 @@
 
 # Ignore Azure credentials
 platform-core/crossplane/overlays/dev/azure-creds.json
+
+.DS_Store
