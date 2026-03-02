@@ -4,4 +4,7 @@
 # Ignore Azure credentials
 platform-core/crossplane/overlays/dev/azure-creds.json
 
+# Ignore Kustomize helm chart cache
+**/charts/
+
 .DS_Store
