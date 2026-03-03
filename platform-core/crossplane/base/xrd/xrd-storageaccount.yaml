@@ -3,7 +3,7 @@ kind: CompositeResourceDefinition
 metadata:
   name : xstorageaccounts.storage.aceplatform.org
 spec:
-  scope: Namespaced
+  scope: Cluster
   group: storage.aceplatform.org
   names:
     kind: XStorageAccount
