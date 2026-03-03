@@ -6,7 +6,7 @@ spec:
   scope: Namespaced
   group: storage.aceplatform.org
   names:
-    kind: xstorageaccount
+    kind: XStorageAccount
     plural: xstorageaccounts
   defaultCompositionRef:
     name: azure-storage-account
