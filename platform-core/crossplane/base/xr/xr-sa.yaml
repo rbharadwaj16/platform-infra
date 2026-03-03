@@ -1,5 +1,5 @@
 apiVersion: storage.aceplatform.org/v1alpha1
-kind: xstorageaccount
+kind: XStorageAccount
 metadata:
   name: myapp-storage
   namespace: default          
