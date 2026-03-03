@@ -1,4 +1,4 @@
-apiVersion: apiextensions.crossplane.io/v2
+apiVersion: apiextensions.crossplane.io/v1        
 kind: Composition
 metadata:
   name: azure-storage-account
@@ -7,53 +7,61 @@ spec:
     apiVersion: storage.aceplatform.org/v1alpha1
     kind: XStorageAccount
 
-  resources:
-    - name: storage-account
-      base:
-        apiVersion: storage.azure.upbound.io/v1beta2
-        kind: Account
-        spec:
-          providerConfigRef:
-            name: default
-          forProvider:
-            accountKind: StorageV2
-            accessTier: Hot
-            httpsTrafficOnlyEnabled: true
-            minTlsVersion: TLS1_2
-            resourceGroupName: placeholder
-            location: placeholder
-            accountTier: placeholder
-            accountReplicationType: placeholder
+  mode: Pipeline                                  
+  pipeline:
+    - step: patch-and-transform
+      functionRef:
+        name: function-patch-and-transform         
+      input:
+        apiVersion: pt.fn.crossplane.io/v1beta1
+        kind: Resources
+        resources:
+          - name: storage-account
+            base:
+              apiVersion: storage.azure.upbound.io/v1beta2
+              kind: Account
+              spec:
+                providerConfigRef:
+                  name: default
+                forProvider:
+                  accountKind: StorageV2
+                  accessTier: Hot
+                  httpsTrafficOnlyEnabled: true
+                  minTlsVersion: TLS1_2
+                  resourceGroupName: placeholder
+                  location: placeholder
+                  accountTier: placeholder
+                  accountReplicationType: placeholder
 
-      patches:
-        - type: FromCompositeFieldPath
-          fromFieldPath: spec.parameters.storageAccountName
-          toFieldPath: metadata.annotations[crossplane.io/external-name]
+            patches:
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.parameters.storageAccountName
+                toFieldPath: metadata.annotations[crossplane.io/external-name]
 
-        - type: FromCompositeFieldPath
-          fromFieldPath: spec.parameters.resourceGroupName
-          toFieldPath: spec.forProvider.resourceGroupName
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.parameters.resourceGroupName
+                toFieldPath: spec.forProvider.resourceGroupName
 
-        - type: FromCompositeFieldPath
-          fromFieldPath: spec.parameters.location
-          toFieldPath: spec.forProvider.location
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.parameters.location
+                toFieldPath: spec.forProvider.location
 
-        - type: FromCompositeFieldPath
-          fromFieldPath: spec.parameters.sku
-          toFieldPath: spec.forProvider.accountTier
-          transforms:
-            - type: map
-              map:
-                Standard_LRS: Standard
-                Standard_GRS: Standard
-                Premium_LRS: Premium
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.parameters.sku
+                toFieldPath: spec.forProvider.accountTier
+                transforms:
+                  - type: map
+                    map:
+                      Standard_LRS: Standard
+                      Standard_GRS: Standard
+                      Premium_LRS: Premium
 
-        - type: FromCompositeFieldPath
-          fromFieldPath: spec.parameters.sku
-          toFieldPath: spec.forProvider.accountReplicationType
-          transforms:
-            - type: map
-              map:
-                Standard_LRS: LRS
-                Standard_GRS: GRS
-                Premium_LRS: LRS
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.parameters.sku
+                toFieldPath: spec.forProvider.accountReplicationType
+                transforms:
+                  - type: map
+                    map:
+                      Standard_LRS: LRS
+                      Standard_GRS: GRS
+                      Premium_LRS: LRS

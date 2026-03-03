@@ -15,3 +15,13 @@ metadata:
   name: upbound-provider-azure-storage
 spec:
   package: xpkg.upbound.io/upbound/provider-azure-storage:v2.4.0
+
+
+---
+
+apiVersion: pkg.crossplane.io/v1beta1
+kind: Function
+metadata:
+  name: upbound-function-patch-and-transform
+spec:
+  package: xpkg.upbound.io/upbound/function-patch-and-transform:v0.10.1
