@@ -2,10 +2,11 @@ apiVersion: storage.aceplatform.org/v1alpha1
 kind: XStorageAccount
 metadata:
   name: myapp-storage
-  #namespace: default          
+  annotations:
+    argocd.argoproj.io/managed-by: crossplane   
 spec:
   parameters:
-    storageAccountName: myappsa2024       
-    resourceGroupName: myapp-rg           
+    storageAccountName: myappsa2024
+    resourceGroupName: myapp-rg
     location: eastus
-    sku: Standard_LRS                     
+    sku: Standard_LRS
