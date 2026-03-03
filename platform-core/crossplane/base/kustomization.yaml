@@ -5,3 +5,6 @@ resources:
  - 01-crossplane-ns.yaml
  - 02-crossplane-argo-app.yaml
  - 03-crossplane-provider-azure.yaml
+ - ../../base/xrd
+ - ../../base/compositions
+ - ../../base/xr
