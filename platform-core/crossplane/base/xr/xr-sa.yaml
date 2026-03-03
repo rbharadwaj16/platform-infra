@@ -1,11 +1,11 @@
-apiVersion: storage.acme.com/v1alpha1
-kind: StorageAccount              # this is the XR kind you defined in the XRD
+apiVersion: storage.aceplatform.org/v1alpha1
+kind: xstorageaccount
 metadata:
-  name: my-storage-account
-  namespace: team-alpha           # namespaced, so safe for developers
+  name: myapp-storage
+  namespace: default          
 spec:
   parameters:
-    storageAccountName: myapp2024
-    resourceGroupName: myapp-rg
+    storageAccountName: myappsa2024       
+    resourceGroupName: myapp-rg           
     location: eastus
-    sku: Standard_LRS
+    sku: Standard_LRS                     
