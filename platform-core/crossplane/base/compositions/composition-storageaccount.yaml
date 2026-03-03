@@ -5,7 +5,7 @@ metadata:
 spec:
   compositeTypeRef:
     apiVersion: storage.aceplatform.org/v1alpha1
-    kind: XStorageAccount
+    kind: xstorageaccount
 
   resources:
     - name: storage-account
