@@ -1,13 +1,15 @@
 apiVersion: apiextensions.crossplane.io/v2
 kind: CompositeResourceDefinition
 metadata:
-  name : xrdstorageaccounts.storage.aceplatform.org
+  name : xstorageaccounts.storage.aceplatform.org
 spec:
   scope: Namespaced
   group: storage.aceplatform.org
   names:
-    kind: XStorageAccount
-    plural: XStorageAccounts
+    kind: xstorageaccount
+    plural: xstorageaccounts
+  defaultCompositionRef:
+    name: azure-storage-account
   versions:
     - name: v1alpha1
       served: true
@@ -18,6 +20,8 @@ spec:
           properties:
               spec:
                 type: object
+                required:
+                  - parameters
                 properties:
                   parameters:
                     type: object
