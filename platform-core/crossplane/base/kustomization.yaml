@@ -7,4 +7,4 @@ resources:
  - 03-crossplane-provider-functions.yaml
  - xrd/xrd-storageaccount.yaml
  - compositions/composition-storageaccount.yaml
- - xr/xr-sa.yaml
+#  - xr/xr-sa.yaml
