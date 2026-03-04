@@ -2,8 +2,9 @@ apiVersion: storage.aceplatform.org/v1alpha1
 kind: XStorageAccount
 metadata:
   name: myapp-storage
-  annotations:
-    argocd.argoproj.io/managed-by: crossplane   
+  namespace: default
+  # annotations:
+  #   argocd.argoproj.io/managed-by: crossplane   
 spec:
   parameters:
     storageAccountName: myappsa2024

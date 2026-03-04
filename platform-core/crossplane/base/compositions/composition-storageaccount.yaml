@@ -1,4 +1,4 @@
-apiVersion: apiextensions.crossplane.io/v1        
+apiVersion: apiextensions.crossplane.io/v1
 kind: Composition
 metadata:
   name: azure-storage-account
@@ -7,19 +7,21 @@ spec:
     apiVersion: storage.aceplatform.org/v1alpha1
     kind: XStorageAccount
 
-  mode: Pipeline                                  
+  mode: Pipeline
   pipeline:
     - step: patch-and-transform
       functionRef:
-        name: upbound-function-patch-and-transform         
+        name: upbound-function-patch-and-transform
       input:
         apiVersion: pt.fn.crossplane.io/v1beta1
         kind: Resources
         resources:
           - name: storage-account
             base:
-              apiVersion: storage.azure.upbound.io/v1beta2
+              apiVersion: storage.azure.m.upbound.io/v1beta1
               kind: Account
+              metadata:
+                namespace: crossplane-system                    
               spec:
                 providerConfigRef:
                   name: default
