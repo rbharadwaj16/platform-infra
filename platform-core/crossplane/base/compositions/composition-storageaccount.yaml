@@ -25,6 +25,7 @@ spec:
               spec:
                 providerConfigRef:
                   name: default
+                  kind: ClusterProviderConfig
                 forProvider:
                   accountKind: StorageV2
                   accessTier: Hot
