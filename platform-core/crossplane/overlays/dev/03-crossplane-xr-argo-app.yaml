@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: crossplane-xrs
+  namespace: argocd
+spec:
+  project: dev
+  source:
+    repoURL: https://github.com/rbharadwaj16/platform-infra.git
+    targetRevision: main
+    path: platform-core/crossplane/xrs/dev
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - SkipDryRunOnMissingResource=true
