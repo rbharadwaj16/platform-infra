@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: backstage
-          image: acepocdemoregistry.azurecr.io/backstage:v1.3
+          image: acepocdemoregistry.azurecr.io/backstage:v1.4
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 7007
@@ -39,6 +39,11 @@ spec:
                   secretKeyRef:
                     name: postgres-secrets
                     key: POSTGRES_DB
+              - name: GITHUB_TOKEN
+                valueFrom:
+                  secretKeyRef:
+                    name: github-token
+                    key: token
       imagePullSecrets:
         - name: admin-creds-acr
             # - name: APP_CONFIG_backend_database_client

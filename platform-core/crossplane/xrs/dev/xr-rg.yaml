@@ -1,9 +1,0 @@
-apiVersion: azure.upbound.io/v1beta1
-kind: ResourceGroup
-metadata:
-  name: rg-xp-test-01
-spec:
-  forProvider:
-    location: eastus
-  providerConfigRef:
-    name: default
