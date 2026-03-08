@@ -9,6 +9,8 @@ spec:
     repoURL: https://github.com/rbharadwaj16/platform-infra.git
     targetRevision: main
     path: platform-core/crossplane/xrs/dev
+    directory:
+      recurse: false
   destination:
     server: https://kubernetes.default.svc
     namespace: default
