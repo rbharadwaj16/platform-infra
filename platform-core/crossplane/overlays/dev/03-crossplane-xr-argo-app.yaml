@@ -10,7 +10,7 @@ spec:
     targetRevision: main
     path: platform-core/crossplane/xrs/dev
     directory:
-      recurse: false
+      recurse: true
   destination:
     server: https://kubernetes.default.svc
     namespace: default
