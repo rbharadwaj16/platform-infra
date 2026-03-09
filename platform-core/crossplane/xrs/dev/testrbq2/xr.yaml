@@ -1,0 +1,13 @@
+apiVersion: storage.aceplatform.org/v1alpha1
+kind: XStorageAccount
+metadata:
+  name: testrbq2
+  namespace: default
+  annotations:
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+spec:
+  parameters:
+    storageAccountName: testrbq2
+    resourceGroupName: myapp-rg
+    location: eastus
+    sku: Standard_LRS
