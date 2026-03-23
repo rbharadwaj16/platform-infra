@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: translator-service
+  namespace: backstage
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: translator-service
+  template:
+    metadata:
+      labels:
+        app: translator-service
+    spec:
+      containers:
+        - name: translator-service
+          image: acepocdemoregistry.azurecr.io/translator-service:0.1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
+          env:
+            - name: AZURE_OPENAI_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: translator-service-openai
+                  key: AZURE_OPENAI_API_KEY
+            - name: AZURE_OPENAI_ENDPOINT
+              valueFrom:
+                secretKeyRef:
+                  name: translator-service-openai
+                  key: AZURE_OPENAI_ENDPOINT
+            - name: AZURE_OPENAI_MODEL
+              valueFrom:
+                secretKeyRef:
+                  name: translator-service-openai
+                  key: AZURE_OPENAI_MODEL
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 15
+            periodSeconds: 20
+      imagePullSecrets:
+        - name: admin-creds-acr
