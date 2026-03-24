@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: backstage
-          image: acepocdemoregistry.azurecr.io/backstage:v1.5
+          image: acepocdemoregistry.azurecr.io/backstage:v1.6
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 7007
@@ -44,6 +44,8 @@ spec:
                   secretKeyRef:
                     name: github-token
                     key: token
+              - name: TRANSLATOR_SERVICE_URL
+                value: http://translator-service/translate
       imagePullSecrets:
         - name: admin-creds-acr
             # - name: APP_CONFIG_backend_database_client
