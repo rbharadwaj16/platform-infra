@@ -2,3 +2,11 @@ apiVersion: apiextensions.crossplane.io/v2
 kind: CompositeResourceDefinition
 metadata:
   name : xaksclusters.compute.aceplatform.org
+spec:
+  scope: Namespaced
+  group: compute.aceplatform.org
+  names:
+    kind: XAKSCluster
+    plural: xaksclusters
+  defaultCompositionRef:
+    name: azure-aks-cluster
