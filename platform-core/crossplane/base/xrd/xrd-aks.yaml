@@ -10,3 +10,7 @@ spec:
     plural: xaksclusters
   defaultCompositionRef:
     name: azure-aks-cluster
+versions:
+    - name: v1alpha1
+      served: true
+      referenceable: true
