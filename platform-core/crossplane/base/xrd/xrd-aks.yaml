@@ -1,7 +1,7 @@
 apiVersion: apiextensions.crossplane.io/v2
 kind: CompositeResourceDefinition
 metadata:
-  name : xaksclusters.compute.aceplatform.org
+  name: xaksclusters.compute.aceplatform.org
 spec:
   scope: Namespaced
   group: compute.aceplatform.org
@@ -10,7 +10,7 @@ spec:
     plural: xaksclusters
   defaultCompositionRef:
     name: azure-aks-cluster
-versions:
+  versions:
     - name: v1alpha1
       served: true
       referenceable: true
@@ -18,3 +18,200 @@ versions:
         openAPIV3Schema:
           type: object
           properties:
+            spec:
+              type: object
+              required:
+                - parameters
+              properties:
+                parameters:
+                  type: object
+                  required:
+                    - clusterName
+                    - resourceGroupName
+                    - location
+                    - defaultNodePool
+                  properties:
+                    clusterName:
+                      type: string
+                      description: Name of the AKS cluster in Azure.
+                      minLength: 3
+                      maxLength: 63
+                      pattern: '^[a-z0-9-]+$'
+                    resourceGroupName:
+                      type: string
+                      description: Azure resource group where the AKS cluster will be created.
+                      minLength: 1
+                    location:
+                      type: string
+                      description: Azure region for the AKS cluster.
+                      enum:
+                        - eastus
+                        - westus
+                        - westeurope
+                        - uksouth
+                    kubernetesVersion:
+                      type: string
+                      description: Desired Kubernetes version for the cluster control plane.
+                      pattern: '^[0-9]+\\.[0-9]+(\\.[0-9]+)?$'
+                    dnsPrefix:
+                      type: string
+                      description: DNS prefix used for the AKS API server endpoint.
+                      minLength: 3
+                      maxLength: 54
+                      pattern: '^[a-z0-9-]+$'
+                    skuTier:
+                      type: string
+                      description: AKS managed cluster SKU tier.
+                      default: Free
+                      enum:
+                        - Free
+                        - Standard
+                    automaticChannelUpgrade:
+                      type: string
+                      description: AKS automatic upgrade channel.
+                      default: patch
+                      enum:
+                        - patch
+                        - rapid
+                        - stable
+                        - node-image
+                        - none
+                    privateClusterEnabled:
+                      type: boolean
+                      description: Whether the AKS API server should be private.
+                      default: false
+                    oidcIssuerEnabled:
+                      type: boolean
+                      description: Enables the OIDC issuer for workload identity integration.
+                      default: true
+                    workloadIdentityEnabled:
+                      type: boolean
+                      description: Enables Azure workload identity on the cluster.
+                      default: true
+                    localAccountDisabled:
+                      type: boolean
+                      description: Disables local admin accounts on the cluster.
+                      default: true
+                    azurePolicyEnabled:
+                      type: boolean
+                      description: Enables the Azure Policy add-on for AKS.
+                      default: false
+                    httpApplicationRoutingEnabled:
+                      type: boolean
+                      description: Enables the HTTP application routing add-on.
+                      default: false
+                    authorizedIpRanges:
+                      type: array
+                      description: Optional list of CIDR ranges allowed to access the Kubernetes API server.
+                      items:
+                        type: string
+                    defaultNodePool:
+                      type: object
+                      description: Consumer-facing settings for the default system node pool.
+                      required:
+                        - name
+                        - vmSize
+                      properties:
+                        name:
+                          type: string
+                          description: Name of the default node pool.
+                          default: system
+                          minLength: 1
+                          maxLength: 12
+                          pattern: '^[a-z0-9]+$'
+                        vmSize:
+                          type: string
+                          description: Azure VM SKU for the default node pool.
+                          default: Standard_D4s_v5
+                        nodeCount:
+                          type: integer
+                          description: Fixed node count when autoscaling is disabled.
+                          default: 3
+                          minimum: 1
+                          maximum: 100
+                        enableAutoScaling:
+                          type: boolean
+                          description: Enables cluster autoscaling on the default node pool.
+                          default: false
+                        minCount:
+                          type: integer
+                          description: Minimum node count when autoscaling is enabled.
+                          minimum: 1
+                          maximum: 100
+                        maxCount:
+                          type: integer
+                          description: Maximum node count when autoscaling is enabled.
+                          minimum: 1
+                          maximum: 100
+                        maxPods:
+                          type: integer
+                          description: Maximum number of pods per node.
+                          default: 30
+                          minimum: 10
+                          maximum: 250
+                        osDiskSizeGb:
+                          type: integer
+                          description: OS disk size in GiB for each node.
+                          default: 128
+                          minimum: 30
+                          maximum: 2048
+                        osSku:
+                          type: string
+                          description: Operating system image used by the node pool.
+                          default: Ubuntu
+                          enum:
+                            - Ubuntu
+                            - AzureLinux
+                        availabilityZones:
+                          type: array
+                          description: Optional availability zones for the node pool.
+                          items:
+                            type: string
+                            enum:
+                              - "1"
+                              - "2"
+                              - "3"
+                    networkProfile:
+                      type: object
+                      description: AKS cluster networking options that are reasonable to expose at the platform layer.
+                      properties:
+                        networkPlugin:
+                          type: string
+                          description: Network plugin used by the AKS cluster.
+                          default: azure
+                          enum:
+                            - azure
+                            - kubenet
+                        networkPolicy:
+                          type: string
+                          description: Network policy provider for the cluster.
+                          enum:
+                            - azure
+                            - calico
+                            - cilium
+                        outboundType:
+                          type: string
+                          description: Outbound routing strategy for the cluster.
+                          default: loadBalancer
+                          enum:
+                            - loadBalancer
+                            - managedNATGateway
+                            - userAssignedNATGateway
+                            - userDefinedRouting
+                            - none
+                        serviceCidr:
+                          type: string
+                          description: CIDR range used for Kubernetes services.
+                          default: 10.0.0.0/16
+                        dnsServiceIp:
+                          type: string
+                          description: Cluster DNS service IP address.
+                          default: 10.0.0.10
+                        podCidr:
+                          type: string
+                          description: Pod CIDR used when kubenet networking is selected.
+                    tags:
+                      type: object
+                      description: Tags applied to the AKS managed cluster.
+                      additionalProperties:
+                        type: string
