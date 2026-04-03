@@ -1,0 +1,235 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: Composition
+metadata:
+  name: azure-aks-cluster
+spec:
+  compositeTypeRef:
+    apiVersion: compute.aceplatform.org/v1alpha1
+    kind: XAKSCluster
+
+  mode: Pipeline
+  pipeline:
+    - step: patch-and-transform
+      functionRef:
+        name: upbound-function-patch-and-transform
+      input:
+        apiVersion: pt.fn.crossplane.io/v1beta1
+        kind: Resources
+        resources:
+          - name: aks-cluster
+            base:
+              apiVersion: containerservice.azure.m.upbound.io/v1beta1
+              kind: KubernetesCluster
+              metadata:
+                namespace: crossplane-system
+              spec:
+                providerConfigRef:
+                  name: default
+                  kind: ClusterProviderConfig
+                forProvider:
+                  location: placeholder
+                  resourceGroupName: placeholder
+                  dnsPrefix: placeholder
+                  automaticUpgradeChannel: patch
+                  privateClusterEnabled: false
+                  oidcIssuerEnabled: true
+                  workloadIdentityEnabled: true
+                  localAccountDisabled: true
+                  roleBasedAccessControlEnabled: true
+                  azurePolicyEnabled: false
+                  httpApplicationRoutingEnabled: false
+                  identity:
+                    - type: SystemAssigned
+                  defaultNodePool:
+                    - name: system
+                      vmSize: Standard_D4s_v5
+                      nodeCount: 3
+                      autoScalingEnabled: false
+                      maxPods: 30
+                      osDiskSizeGb: 128
+                      osSku: Ubuntu
+                  networkProfile:
+                    - networkPlugin: azure
+                      outboundType: loadBalancer
+                      serviceCidr: 10.0.0.0/16
+                      dnsServiceIp: 10.0.0.10
+            patches:
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.parameters.clusterName
+                toFieldPath: metadata.annotations[crossplane.io/external-name]
+
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.parameters.clusterName
+                toFieldPath: spec.forProvider.dnsPrefix
+
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.parameters.dnsPrefix
+                toFieldPath: spec.forProvider.dnsPrefix
+                policy:
+                  fromFieldPath: Optional
+
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.parameters.resourceGroupName
+                toFieldPath: spec.forProvider.resourceGroupName
+
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.parameters.location
+                toFieldPath: spec.forProvider.location
+
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.parameters.kubernetesVersion
+                toFieldPath: spec.forProvider.kubernetesVersion
+                policy:
+                  fromFieldPath: Optional
+
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.parameters.skuTier
+                toFieldPath: spec.forProvider.skuTier
+                policy:
+                  fromFieldPath: Optional
+
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.parameters.automaticChannelUpgrade
+                toFieldPath: spec.forProvider.automaticUpgradeChannel
+                policy:
+                  fromFieldPath: Optional
+
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.parameters.privateClusterEnabled
+                toFieldPath: spec.forProvider.privateClusterEnabled
+                policy:
+                  fromFieldPath: Optional
+
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.parameters.oidcIssuerEnabled
+                toFieldPath: spec.forProvider.oidcIssuerEnabled
+                policy:
+                  fromFieldPath: Optional
+
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.parameters.workloadIdentityEnabled
+                toFieldPath: spec.forProvider.workloadIdentityEnabled
+                policy:
+                  fromFieldPath: Optional
+
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.parameters.localAccountDisabled
+                toFieldPath: spec.forProvider.localAccountDisabled
+                policy:
+                  fromFieldPath: Optional
+
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.parameters.azurePolicyEnabled
+                toFieldPath: spec.forProvider.azurePolicyEnabled
+                policy:
+                  fromFieldPath: Optional
+
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.parameters.httpApplicationRoutingEnabled
+                toFieldPath: spec.forProvider.httpApplicationRoutingEnabled
+                policy:
+                  fromFieldPath: Optional
+
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.parameters.authorizedIpRanges
+                toFieldPath: spec.forProvider.apiServerAccessProfile[0].authorizedIpRanges
+                policy:
+                  fromFieldPath: Optional
+
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.parameters.defaultNodePool.name
+                toFieldPath: spec.forProvider.defaultNodePool[0].name
+
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.parameters.defaultNodePool.vmSize
+                toFieldPath: spec.forProvider.defaultNodePool[0].vmSize
+
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.parameters.defaultNodePool.nodeCount
+                toFieldPath: spec.forProvider.defaultNodePool[0].nodeCount
+                policy:
+                  fromFieldPath: Optional
+
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.parameters.defaultNodePool.enableAutoScaling
+                toFieldPath: spec.forProvider.defaultNodePool[0].autoScalingEnabled
+                policy:
+                  fromFieldPath: Optional
+
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.parameters.defaultNodePool.minCount
+                toFieldPath: spec.forProvider.defaultNodePool[0].minCount
+                policy:
+                  fromFieldPath: Optional
+
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.parameters.defaultNodePool.maxCount
+                toFieldPath: spec.forProvider.defaultNodePool[0].maxCount
+                policy:
+                  fromFieldPath: Optional
+
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.parameters.defaultNodePool.maxPods
+                toFieldPath: spec.forProvider.defaultNodePool[0].maxPods
+                policy:
+                  fromFieldPath: Optional
+
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.parameters.defaultNodePool.osDiskSizeGb
+                toFieldPath: spec.forProvider.defaultNodePool[0].osDiskSizeGb
+                policy:
+                  fromFieldPath: Optional
+
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.parameters.defaultNodePool.osSku
+                toFieldPath: spec.forProvider.defaultNodePool[0].osSku
+                policy:
+                  fromFieldPath: Optional
+
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.parameters.defaultNodePool.availabilityZones
+                toFieldPath: spec.forProvider.defaultNodePool[0].zones
+                policy:
+                  fromFieldPath: Optional
+
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.parameters.networkProfile.networkPlugin
+                toFieldPath: spec.forProvider.networkProfile[0].networkPlugin
+                policy:
+                  fromFieldPath: Optional
+
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.parameters.networkProfile.networkPolicy
+                toFieldPath: spec.forProvider.networkProfile[0].networkPolicy
+                policy:
+                  fromFieldPath: Optional
+
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.parameters.networkProfile.outboundType
+                toFieldPath: spec.forProvider.networkProfile[0].outboundType
+                policy:
+                  fromFieldPath: Optional
+
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.parameters.networkProfile.serviceCidr
+                toFieldPath: spec.forProvider.networkProfile[0].serviceCidr
+                policy:
+                  fromFieldPath: Optional
+
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.parameters.networkProfile.dnsServiceIp
+                toFieldPath: spec.forProvider.networkProfile[0].dnsServiceIp
+                policy:
+                  fromFieldPath: Optional
+
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.parameters.networkProfile.podCidr
+                toFieldPath: spec.forProvider.networkProfile[0].podCidr
+                policy:
+                  fromFieldPath: Optional
+
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.parameters.tags
+                toFieldPath: spec.forProvider.tags
+                policy:
+                  fromFieldPath: Optional
