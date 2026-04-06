@@ -1,0 +1,17 @@
+apiVersion: compute.aceplatform.org/v1alpha1
+kind: XAKSCluster
+metadata:
+  name: akstestcluster01
+  namespace: default
+  annotations:
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+spec:
+  parameters:
+    clusterName: akstestcluster01
+    resourceGroupName: myapp-rg
+    location: eastus
+    defaultNodePool:
+      name: system
+      vmSize: Standard_D4s_v5
+      nodeCount: 1
+      enableAutoScaling: false
