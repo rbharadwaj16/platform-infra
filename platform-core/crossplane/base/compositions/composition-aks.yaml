@@ -39,20 +39,20 @@ spec:
                   azurePolicyEnabled: false
                   httpApplicationRoutingEnabled: false
                   identity:
-                    - type: SystemAssigned
+                    type: SystemAssigned
                   defaultNodePool:
-                    - name: system
-                      vmSize: Standard_D4s_v5
-                      nodeCount: 3
-                      autoScalingEnabled: false
-                      maxPods: 30
-                      osDiskSizeGb: 128
-                      osSku: Ubuntu
+                    name: system
+                    vmSize: Standard_D4s_v5
+                    nodeCount: 3
+                    autoScalingEnabled: false
+                    maxPods: 30
+                    osDiskSizeGb: 128
+                    osSku: Ubuntu
                   networkProfile:
-                    - networkPlugin: azure
-                      outboundType: loadBalancer
-                      serviceCidr: 10.0.0.0/16
-                      dnsServiceIp: 10.0.0.10
+                    networkPlugin: azure
+                    outboundType: loadBalancer
+                    serviceCidr: 10.0.0.0/16
+                    dnsServiceIp: 10.0.0.10
             patches:
               - type: FromCompositeFieldPath
                 fromFieldPath: spec.parameters.clusterName
@@ -132,99 +132,99 @@ spec:
 
               - type: FromCompositeFieldPath
                 fromFieldPath: spec.parameters.authorizedIpRanges
-                toFieldPath: spec.forProvider.apiServerAccessProfile[0].authorizedIpRanges
+                toFieldPath: spec.forProvider.apiServerAccessProfile.authorizedIpRanges
                 policy:
                   fromFieldPath: Optional
 
               - type: FromCompositeFieldPath
                 fromFieldPath: spec.parameters.defaultNodePool.name
-                toFieldPath: spec.forProvider.defaultNodePool[0].name
+                toFieldPath: spec.forProvider.defaultNodePool.name
 
               - type: FromCompositeFieldPath
                 fromFieldPath: spec.parameters.defaultNodePool.vmSize
-                toFieldPath: spec.forProvider.defaultNodePool[0].vmSize
+                toFieldPath: spec.forProvider.defaultNodePool.vmSize
 
               - type: FromCompositeFieldPath
                 fromFieldPath: spec.parameters.defaultNodePool.nodeCount
-                toFieldPath: spec.forProvider.defaultNodePool[0].nodeCount
+                toFieldPath: spec.forProvider.defaultNodePool.nodeCount
                 policy:
                   fromFieldPath: Optional
 
               - type: FromCompositeFieldPath
                 fromFieldPath: spec.parameters.defaultNodePool.enableAutoScaling
-                toFieldPath: spec.forProvider.defaultNodePool[0].autoScalingEnabled
+                toFieldPath: spec.forProvider.defaultNodePool.autoScalingEnabled
                 policy:
                   fromFieldPath: Optional
 
               - type: FromCompositeFieldPath
                 fromFieldPath: spec.parameters.defaultNodePool.minCount
-                toFieldPath: spec.forProvider.defaultNodePool[0].minCount
+                toFieldPath: spec.forProvider.defaultNodePool.minCount
                 policy:
                   fromFieldPath: Optional
 
               - type: FromCompositeFieldPath
                 fromFieldPath: spec.parameters.defaultNodePool.maxCount
-                toFieldPath: spec.forProvider.defaultNodePool[0].maxCount
+                toFieldPath: spec.forProvider.defaultNodePool.maxCount
                 policy:
                   fromFieldPath: Optional
 
               - type: FromCompositeFieldPath
                 fromFieldPath: spec.parameters.defaultNodePool.maxPods
-                toFieldPath: spec.forProvider.defaultNodePool[0].maxPods
+                toFieldPath: spec.forProvider.defaultNodePool.maxPods
                 policy:
                   fromFieldPath: Optional
 
               - type: FromCompositeFieldPath
                 fromFieldPath: spec.parameters.defaultNodePool.osDiskSizeGb
-                toFieldPath: spec.forProvider.defaultNodePool[0].osDiskSizeGb
+                toFieldPath: spec.forProvider.defaultNodePool.osDiskSizeGb
                 policy:
                   fromFieldPath: Optional
 
               - type: FromCompositeFieldPath
                 fromFieldPath: spec.parameters.defaultNodePool.osSku
-                toFieldPath: spec.forProvider.defaultNodePool[0].osSku
+                toFieldPath: spec.forProvider.defaultNodePool.osSku
                 policy:
                   fromFieldPath: Optional
 
               - type: FromCompositeFieldPath
                 fromFieldPath: spec.parameters.defaultNodePool.availabilityZones
-                toFieldPath: spec.forProvider.defaultNodePool[0].zones
+                toFieldPath: spec.forProvider.defaultNodePool.zones
                 policy:
                   fromFieldPath: Optional
 
               - type: FromCompositeFieldPath
                 fromFieldPath: spec.parameters.networkProfile.networkPlugin
-                toFieldPath: spec.forProvider.networkProfile[0].networkPlugin
+                toFieldPath: spec.forProvider.networkProfile.networkPlugin
                 policy:
                   fromFieldPath: Optional
 
               - type: FromCompositeFieldPath
                 fromFieldPath: spec.parameters.networkProfile.networkPolicy
-                toFieldPath: spec.forProvider.networkProfile[0].networkPolicy
+                toFieldPath: spec.forProvider.networkProfile.networkPolicy
                 policy:
                   fromFieldPath: Optional
 
               - type: FromCompositeFieldPath
                 fromFieldPath: spec.parameters.networkProfile.outboundType
-                toFieldPath: spec.forProvider.networkProfile[0].outboundType
+                toFieldPath: spec.forProvider.networkProfile.outboundType
                 policy:
                   fromFieldPath: Optional
 
               - type: FromCompositeFieldPath
                 fromFieldPath: spec.parameters.networkProfile.serviceCidr
-                toFieldPath: spec.forProvider.networkProfile[0].serviceCidr
+                toFieldPath: spec.forProvider.networkProfile.serviceCidr
                 policy:
                   fromFieldPath: Optional
 
               - type: FromCompositeFieldPath
                 fromFieldPath: spec.parameters.networkProfile.dnsServiceIp
-                toFieldPath: spec.forProvider.networkProfile[0].dnsServiceIp
+                toFieldPath: spec.forProvider.networkProfile.dnsServiceIp
                 policy:
                   fromFieldPath: Optional
 
               - type: FromCompositeFieldPath
                 fromFieldPath: spec.parameters.networkProfile.podCidr
-                toFieldPath: spec.forProvider.networkProfile[0].podCidr
+                toFieldPath: spec.forProvider.networkProfile.podCidr
                 policy:
                   fromFieldPath: Optional
 
