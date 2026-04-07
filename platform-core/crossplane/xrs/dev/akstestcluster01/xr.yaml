@@ -12,6 +12,6 @@ spec:
     location: eastus
     defaultNodePool:
       name: system
-      vmSize: Standard_D4s_v5
+      vmSize: Standard_DC2as_v5
       nodeCount: 1
       enableAutoScaling: false
