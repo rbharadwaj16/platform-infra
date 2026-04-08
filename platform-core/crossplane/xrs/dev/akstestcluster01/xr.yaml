@@ -10,6 +10,7 @@ spec:
     clusterName: akstestcluster01
     resourceGroupName: myapp-rg
     location: eastus
+    localAccountDisabled: false
     defaultNodePool:
       name: system
       vmSize: Standard_DC2as_v5
