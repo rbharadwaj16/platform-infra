@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: translator-service
-          image: acepocdemoregistry.azurecr.io/translator-service:0.4
+          image: acepocdemoregistry.azurecr.io/translator-service:0.5
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8000
