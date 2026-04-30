@@ -8,3 +8,6 @@ platform-core/crossplane/overlays/dev/azure-creds.json
 **/charts/
 
 .DS_Store
+.terraform.tfstate
+.terraform.tfstate.backup
+.terraform.tfstate.lock.info
