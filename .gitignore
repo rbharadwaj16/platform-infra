@@ -7,6 +7,7 @@ platform-core/crossplane/overlays/dev/azure-creds.json
 # Ignore Kustomize helm chart cache
 **/charts/
 
+# Ignore macOS metadata
 .DS_Store
 .terraform.tfstate
 .terraform.tfstate.backup
