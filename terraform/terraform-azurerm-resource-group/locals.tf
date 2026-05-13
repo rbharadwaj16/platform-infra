@@ -1,6 +1,6 @@
 locals {
   context_name_parts = var.context == null ? [] : compact([
-    "rg",
+    rg,
     try(var.context.org, null),
     try(var.context.domain, null),
     var.context.app,
@@ -9,16 +9,14 @@ locals {
     try(var.context.instance, null)
   ])
 
-  computed_name = var.context == null ? null : lower(join("-", local.context_name_parts))
 
-  resource_group_name = var.name != null ? lower(var.name) : local.computed_name
+computed_name = var.context == null ? null : lower(join("-", local.context_name_parts))
 
-  location = lower(var.location)
+resource_group_name  = var.name != null ? lower(var.name) : local.computed_name
 
-  missing_required_tag_keys = [
-    for key in var.required_tag_keys : key
-    if !contains(keys(var.tags), key) || trimspace(lookup(var.tags, key, "")) == ""
-  ]
+location = lower(var.location)
 
-  location_allowed = length(var.allowed_locations) == 0 || contains(var.allowed_locations, local.location)
 }
+
+
+
