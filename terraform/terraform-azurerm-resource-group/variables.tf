@@ -9,9 +9,6 @@ variable "location" {
   type = string
 }
 
-variable "name" {
-  description = "Explicit rg name. If provided, this overrides context-based naming"
-}
 
 variable "context" {
   description = "Naming context used to compute the resource group name when name is not provided"
