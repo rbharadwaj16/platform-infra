@@ -1,16 +1,19 @@
-output "rg_location" {
-    description = "Location of the resource group"
-    value       = azurerm_resource_group.rg.location
+output "name" {
+  description = "Resource group name."
+  value       = azurerm_resource_group.this.name
 }
 
-output "rg_name" {
-    description = "Name of the resource group"
-    value       = azurerm_resource_group.rg.name
-  
+output "resource_id" {
+  description = "Resource group ID."
+  value       = azurerm_resource_group.this.id
 }
 
-output "rg_id" {
-    description = "ID of the resource group"
-    value       = azurerm_resource_group.rg.id
-  
+output "location" {
+  description = "Resource group location."
+  value       = azurerm_resource_group.this.location
+}
+
+output "tags" {
+  description = "Resource group tags."
+  value       = azurerm_resource_group.this.tags
 }
